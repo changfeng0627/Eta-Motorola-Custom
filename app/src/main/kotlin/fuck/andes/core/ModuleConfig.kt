@@ -10,7 +10,9 @@ internal object ModuleConfig {
     const val COLOROS_MEMORY_PACKAGE = "com.oplus.aimemory"
     const val XIAOAI_PACKAGE = "com.miui.voiceassist"
     const val XIAOAI_CORE_PROCESS = "$XIAOAI_PACKAGE:core"
-    val AGENT_RUNTIME_ENTRY_PACKAGES = setOf(BREENO_PACKAGE, XIAOAI_PACKAGE)
+    // 联想天禧AI包名
+    const val LENVO_TIANXI_PACKAGE = "com.lenovo.xbb"
+    val AGENT_RUNTIME_ENTRY_PACKAGES = setOf(BREENO_PACKAGE, XIAOAI_PACKAGE, LENVO_TIANXI_PACKAGE)
     const val GOOGLE_ASSISTANT_COMPONENT =
         "$GOOGLE_PACKAGE/com.google.android.voiceinteraction.GsaVoiceInteractionService"
     const val ETA_VOICE_INTERACTION_COMPONENT =
