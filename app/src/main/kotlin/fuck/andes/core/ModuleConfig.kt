@@ -1,135 +1,55 @@
 package fuck.andes.core
 
-object ModuleConfig {
-    /**
-     * 原始 AOSP / Google 助手的静态作用域，保持不变
-     */
-    val ANDROID_ASSISTANT_PACKAGES = listOf(
-        "com.google.android.googlequicksearchbox",
-        "com.google.android.apps.googleassistant"
-    )
+internal object ModuleConfig {
+    const val TAG = "FuckAndes"
+    const val HOT_PATH_LOG_WINDOW_MS = 60_000L
 
-    /**
-     * 小爱同学的静态作用域，保持不变
-     */
-    val XIAOMI_PACKAGES = listOf(
-        "com.miui.voiceassist",
-        "com.xiaomi.aiasst.service",
-        "com.xiaomi.aiasst.vision",
-        "com.xiaomi.aiasst.eval",
-        "com.xiaomi.aiasst.msgcenter"
-    )
+    const val GOOGLE_PACKAGE = "com.google.android.googlequicksearchbox"
+    const val ETA_PACKAGE = "fuck.andes"
+    const val BREENO_PACKAGE = "com.heytap.speechassist"
+    const val COLOROS_MEMORY_PACKAGE = "com.oplus.aimemory"
+    const val XIAOAI_PACKAGE = "com.miui.voiceassist"
+    const val XIAOAI_CORE_PROCESS = "$XIAOAI_PACKAGE:core"
+    val AGENT_RUNTIME_ENTRY_PACKAGES = setOf(BREENO_PACKAGE, XIAOAI_PACKAGE)
+    const val GOOGLE_ASSISTANT_COMPONENT =
+        "$GOOGLE_PACKAGE/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+    const val ETA_VOICE_INTERACTION_COMPONENT =
+        "$ETA_PACKAGE/fuck.andes.agent.voice.EtaVoiceInteractionService"
+    const val ASSISTANT_ROLE = "android.app.role.ASSISTANT"
+    const val SECURE_ASSISTANT = "assistant"
+    const val SECURE_VOICE_INTERACTION_SERVICE = "voice_interaction_service"
+    const val SYSTEM_UI_PACKAGE = "com.android.systemui"
+    const val COLOR_DIRECT_PACKAGE = "com.coloros.colordirectservice"
 
-    /**
-     * 三星 Bixby 的静态作用域，保持不变
-     */
-    val BREENO_PACKAGES = listOf(
-        "com.coloros.gamespace",
-        "com.heytap.speechassist",
-        "com.heytap.usercenter"
-    )
+    const val CONTEXTUAL_SEARCH_ACTION = "android.app.contextualsearch.action.LAUNCH_CONTEXTUAL_SEARCH"
+    const val CONTEXTUAL_SEARCH_SERVICE = "contextual_search"
+    const val CONTEXTUAL_SEARCH_CLASS =
+        "com.android.server.contextualsearch.ContextualSearchManagerService"
+    const val TIMINGS_TRACE_AND_SLOG_CLASS = "com.android.server.utils.TimingsTraceAndSlog"
+    const val VOICE_INTERACTION_SERVICE = "voiceinteraction"
+    const val VOICE_INTERACTION_MANAGER_SERVICE_CLASS =
+        "com.android.server.voiceinteraction.VoiceInteractionManagerService"
+    const val OCR_BUSINESS_CLASS =
+        "com.oplus.systemui.navigationbar.ocrscreen.OplusOcrScreenBusiness"
+    const val COLOR_DIRECT_COLLECT_ACTIVITY_CLASS =
+        "com.coloros.directui.ui.CollectInfoActivity"
+    const val COLOR_DIRECT_START_INFO_CLASS =
+        "com.oplus.infocollection.data.CollectionStartInfo"
+    const val SYSTEM_SERVER_CLASS = "com.android.server.SystemServer"
+    const val PHONE_WINDOW_MANAGER_CLASS = "com.android.server.policy.PhoneWindowManager"
+    const val OP_LUS_SPEECH_HANDLER_CLASS =
+        "com.android.server.policy.PhoneWindowManagerExtImpl\$OplusSpeechHandler"
 
-    /**
-     * 三星 Bixby 的静态作用域，保持不变
-     */
-    val SAMSUNG_PACKAGES = listOf(
-        "com.samsung.android.bixby.agent",
-        "com.samsung.android.bixby.service",
-        "com.samsung.android.bixby.vision",
-        "com.samsung.android.bixby.voiceinput"
-    )
+    const val CIRCLE_TO_SEARCH_ENTRYPOINT = 2
+    const val COLOR_DIRECT_EXTRA_START_INFO = "startInfo"
+    const val COLOR_DIRECT_EXTRA_DIRECT_EXT = "directExt"
+    const val COLOR_DIRECT_DOUBLE_FINGER_COUNT = 2
+    const val OP_LUS_ASSIST_MESSAGE_WHAT = 0x3F3
+    const val INTERCEPT_DEDUP_WINDOW_MS = 1_000L
 
-    /**
-     * 小布助手的静态作用域，保持不变
-     */
-    val OPLUS_PACKAGES = listOf(
-        "com.coloros.deepthinker",
-        "com.heytap.speechassist",
-        "com.heytap.usercenter"
-    )
-
-    /**
-     * 【新增】联想天禧AI（想帮帮）的静态作用域
-     */
-    val LENOVO_TIANXI_PACKAGES = listOf(
-        "com.lenovo.xbb",
-        "com.lenovo.xbb.service",
-        "com.lenovo.xbb.vision",
-        "com.lenovo.xbb.voiceinput"
-    )
-
-    /**
-     * 需要 Hook 的目标应用包名列表
-     * 包含所有支持的AI助手包名
-     */
-    val AGENT_RUNTIME_ENTRY_PACKAGES = listOf(
-        *ANDROID_ASSISTANT_PACKAGES.toTypedArray(),
-        *XIAOMI_PACKAGES.toTypedArray(),
-        *BREENO_PACKAGES.toTypedArray(),
-        *SAMSUNG_PACKAGES.toTypedArray(),
-        *OPLUS_PACKAGES.toTypedArray(),
-        *LENOVO_TIANXI_PACKAGES.toTypedArray() // 添加天禧AI包名
-    )
-
-    /**
-     * Xposed 模块作用域
-     */
-    val XPOSED_SCOPE = listOf(
-        "com.android.systemui",
-        "com.android.settings",
-        *ANDROID_ASSISTANT_PACKAGES.toTypedArray(),
-        *XIAOMI_PACKAGES.toTypedArray(),
-        *BREENO_PACKAGES.toTypedArray(),
-        *SAMSUNG_PACKAGES.toTypedArray(),
-        *OPLUS_PACKAGES.toTypedArray(),
-        *LENOVO_TIANXI_PACKAGES.toTypedArray() // 添加天禧AI包名
-    )
-
-    /**
-     * 包名判断工具函数
-     */
-    fun isAndroidAssistantPackage(packageName: String): Boolean {
-        return ANDROID_ASSISTANT_PACKAGES.any { it == packageName || packageName.startsWith("$it:") }
-    }
-
-    fun isXiaomiPackage(packageName: String): Boolean {
-        return XIAOMI_PACKAGES.any { it == packageName || packageName.startsWith("$it:") }
-    }
-
-    fun isBreenoPackage(packageName: String): Boolean {
-        return BREENO_PACKAGES.any { it == packageName || packageName.startsWith("$it:") }
-    }
-
-    fun isSamsungPackage(packageName: String): Boolean {
-        return SAMSUNG_PACKAGES.any { it == packageName || packageName.startsWith("$it:") }
-    }
-
-    fun isOplusPackage(packageName: String): Boolean {
-        return OPLUS_PACKAGES.any { it == packageName || packageName.startsWith("$it:") }
-    }
-
-    /**
-     * 【新增】天禧AI包名判断函数
-     */
-    fun isLenovoTianxiPackage(packageName: String): Boolean {
-        return LENOVO_TIANXI_PACKAGES.any { it == packageName || packageName.startsWith("$it:") }
-    }
-
-    /**
-     * 综合判断是否为Hook目标包名
-     */
-    fun isTargetPackage(packageName: String): Boolean {
-        return isAndroidAssistantPackage(packageName) ||
-               isXiaomiPackage(packageName) ||
-               isBreenoPackage(packageName) ||
-               isSamsungPackage(packageName) ||
-               isOplusPackage(packageName) ||
-               isLenovoTianxiPackage(packageName) // 添加天禧AI判断
-    }
-
-    /**
-     * 配置项：是否启用天禧AI Hook
-     * 默认启用，用户可以在设置界面中关闭
-     */
-    var enableLenovoTianxiHook = true
+    const val SPOOF_MANUFACTURER = "samsung"
+    const val SPOOF_BRAND = "samsung"
+    const val SPOOF_MODEL = "SM-S928B"
+    const val SPOOF_PRODUCT = "e3s"
+    const val SPOOF_DEVICE = "e3s"
 }
