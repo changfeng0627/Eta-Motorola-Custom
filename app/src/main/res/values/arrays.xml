@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Xposed模块作用域 -->
+    <string-array name="xposed_scope">
+        <item>com.android.systemui</item>
+        <item>com.android.settings</item>
+        <item>com.google.android.googlequicksearchbox</item>
+        <item>com.google.android.apps.googleassistant</item>
+        <item>com.miui.voiceassist</item>
+        <item>com.xiaomi.aiasst.service</item>
+        <item>com.xiaomi.aiasst.vision</item>
+        <item>com.xiaomi.aiasst.eval</item>
+        <item>com.xiaomi.aiasst.msgcenter</item>
+        <item>com.coloros.gamespace</item>
+        <item>com.heytap.speechassist</item>
+        <item>com.heytap.usercenter</item>
+        <item>com.samsung.android.bixby.agent</item>
+        <item>com.samsung.android.bixby.service</item>
+        <item>com.samsung.android.bixby.vision</item>
+        <item>com.samsung.android.bixby.voiceinput</item>
+        <item>com.coloros.deepthinker</item>
+        <!-- 【新增】联想天禧AI（想帮帮）包名 -->
+        <item>com.lenovo.xbb</item>
+        <item>com.lenovo.xbb.service</item>
+        <item>com.lenovo.xbb.vision</item>
+        <item>com.lenovo.xbb.voiceinput</item>
+    </string-array>
+</resources>
